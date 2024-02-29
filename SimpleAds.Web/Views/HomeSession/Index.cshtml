@@ -1,0 +1,26 @@
+﻿@model HomePageViewModel
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        @foreach (AdViewModel adVm in Model.Ads)
+        {
+            <div class="bg-light rounded-3 p-5 mt-3">
+                @if (!string.IsNullOrEmpty(adVm.Ad.Name))
+                {
+                    <h5>Listed by @adVm.Ad.Name</h5>
+                }
+                <h5>Listed on @adVm.Ad.Date.ToLongDateString()</h5>
+                <h5>Phone Number: @adVm.Ad.PhoneNumber</h5>
+                <h3>Details:</h3>
+                <p>@adVm.Ad.Description</p>
+                @if (adVm.CanDelete)
+                {
+                    <form method="post" action="/homesession/deletead">
+                        <input type="hidden" name="id" value="@adVm.Ad.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+</div>
